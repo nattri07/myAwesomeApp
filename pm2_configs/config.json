@@ -1,0 +1,13 @@
+{
+  "apps" : [{
+    "name"        : "myAwesomeApp",
+    "script"      : "./bin/www",
+    "exec_mode"   : "cluster",
+    "instances" : 1,
+    "merge_logs" :true,
+    "env": {
+      "PORT": 3000,
+      "MONITORING": false
+    },
+  }]
+}
