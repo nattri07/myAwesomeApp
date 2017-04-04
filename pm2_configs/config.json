@@ -2,7 +2,8 @@
   "apps" : [{
     "name"        : "myAwesomeApp",
     "script"      : "./bin/www",
-    "exec_mode"   : "cluster",
+    "exec_mode"   : "fork",
+    "exec_interpreter": "babel-node",
     "instances" : 1,
     "merge_logs" :true,
     "env": {
