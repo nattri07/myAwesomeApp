@@ -7,6 +7,7 @@
     "dev": "pm2-dev start pm2_configs/config.json"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.0",
     "body-parser": "~1.15.1",
     "bookshelf": "^0.10.3",
     "cookie-parser": "~1.4.3",
