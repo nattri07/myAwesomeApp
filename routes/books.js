@@ -1,29 +1,64 @@
 import express from 'express';
 import Author from '../models/Author';
 import Book from '../models/Book';
+import Genre from '../models/Genre';
 
 const router = express.Router();
 
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.send('respond with a resource');
+  Book
+  .fetchAll({withRelated: ['author','genres']})
+  .then((books)=>{
+    res.json(books);
+  })
 });
 
 router.post('/', (req, res, next) => {
-  if(req.body.first_name){
-    Author.forge({
-      first_name : req.body.first_name,
-      last_name : req.body.last_name || null
-    })
-    .save()
-    .then((author) => {
-      res.json(author)
+  let genres = req.body.genres;
+  if(genres){
+    genres = genres.split(',').map((genre)=>{
+      return genre.trim();
     })
   }
   else{
-    res.status(400).send('Missing Parameters')
+    genres = ['undefined']
   }
+
+  Book
+  .forge({
+    title : req.body.title,
+    year : req.body.year || null,
+    author_id : req.body.author_id
+  })
+  .save()
+  .then((book)=>{
+    genres.forEach((genre_name)=>{
+      console.log(genre_name)
+      Genre
+      .where({name : genre_name})
+      .fetch()
+      .then((genre)=>{
+        if(genre){
+          book.genres().attach(genre)
+        }
+        else{
+          Genre
+          .forge({
+            name : genre_name
+          })
+          .save()
+          .then((new_genre)=>{
+            book.genres().attach(new_genre)
+          })
+        }
+      })
+    })
+  })
+  .then(()=>{
+    res.json("Values Inserted")
+  })
 })
 
 module.exports = router;
