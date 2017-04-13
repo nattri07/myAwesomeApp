@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "pm2 start pm2_configs/config.json",
-    "dev": "pm2-dev start pm2_configs/config.json"
+    "dev": "pm2-dev start pm2_configs/config.json",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.24.0",
