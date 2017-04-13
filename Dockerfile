@@ -5,6 +5,8 @@ LABEL maintainer Nirat Attri <nirat.attri07@gmail.com>
 # Set the work directory
 WORKDIR /www/myAwesomeApp
 
+RUN npm install pm2 -g
+
 ADD package.json /www/myAwesomeApp
 RUN npm install
 
