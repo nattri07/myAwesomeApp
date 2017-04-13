@@ -1,8 +1,22 @@
-FROM ubuntu
-LABEL maintainer Nirat Attri <nirat.attri07@gmail.com> # This is totally unnecessary. I just want my name everywhere :P
-RUN apt-get update && apt-get install -y \
-  jq \
-  vim \
-  nano
-WORKDIR /home/amazeballs
-COPY wootwoot.txt /home/amazeballs
+FROM node:6.9.4
+
+LABEL maintainer Nirat Attri <nirat.attri07@gmail.com>
+
+# Set the work directory
+WORKDIR /www/myAwesomeApp
+
+ADD package.json /www/myAwesomeApp
+RUN npm install
+
+# Add application files
+ADD . /www/myAwesomeApp
+
+# Entrypoint script
+RUN cp docker-entrypoint.sh /usr/local/bin/ && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Expose the port
+
+EXPOSE 3000
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
