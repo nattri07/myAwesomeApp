@@ -1,4 +1,4 @@
 #!/bin/bash
 
 npm run migrate
-npm start
+npm run start-docker
