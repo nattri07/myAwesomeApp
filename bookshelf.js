@@ -2,9 +2,9 @@
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
+    host     : 'mysql',
+    user     : 'awesomeness',
+    password : 'lamepassword',
     database : 'mybooks',
     charset  : 'utf8'
   }
