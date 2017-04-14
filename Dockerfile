@@ -7,6 +7,7 @@ WORKDIR /www/myAwesomeApp
 
 # Good to have stuff
 RUN npm install pm2 -g
+RUN npm install babel-cli -g
 RUN apt-get update && apt-get install -y \
   vim
 
