@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+    mysql:
+        build: ./db_stuff
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        healthcheck:
+            test: "exit 0"
+    
+    myawesomeapp:
+        build: .
+        depends_on:
+            mysql:
+                condition: service_healthy
+        entrypoint:
+            - /usr/local/bin/docker-entrypoint.sh
+        ports:
+            - "3000:3000"
